@@ -2,8 +2,7 @@
 
 // FI Card reader
 
-// Opens all files in "fifiles" folder and iterates over them - calling the "parseFile" function with the contents of all files
-// Call this function to get started
+// This particular file simply parses data posted to it. Post data from an HTML file to this one.
 function init(){
     parseFile();
 }
@@ -12,7 +11,7 @@ function init(){
 
 function parseFile()
     {
-        echo "Læser overførsler...<br/><br/>";
+        echo "LÃ¦ser overfÃ¸rsler...<br/><br/>";
         
         $file = $_FILES['file'];
         
@@ -36,9 +35,9 @@ function parseFile()
                 // FI Line
                 if($fi_parsed = parseFILine($line))
                 {
-                    echo "Overførsel " . (string)($count + 1) . "<br/>";
+                    echo "OverfÃ¸rsel " . (string)($count + 1) . "<br/>";
                     echo 'FI nummer:   ' . $fi_parsed['fi_number'] . "<br/>";
-                    echo 'Beløb:      ' . number_format((double)$fi_parsed['amount'], 2, ',', '.') . " kr.<br/>";
+                    echo 'BelÃ¸b:      ' . number_format((double)$fi_parsed['amount'], 2, ',', '.') . " kr.<br/>";
                     echo 'Betalingsdato: ' . $fi_parsed['payment_date'] . "<br/>";
                     echo 'Bank dato:   ' . $fi_parsed['payment_date2'] . "<br/>";
                     echo '<br/>';
@@ -51,8 +50,8 @@ function parseFile()
 
         }
         
-        echo "Der var i alt " . $count . " overførsler, med et total beløb på " . number_format($total_sum, 2, ',', '.') . " kr. <br/>";
-        echo "Husk at tjekke om beløbet stemmer med banken!";
+        echo "Der var i alt " . $count . " overfÃ¸rsler, med et total belÃ¸b pÃ¥ " . number_format($total_sum, 2, ',', '.') . " kr. <br/>";
+        echo "Husk at tjekke om belÃ¸bet stemmer med banken!";
         
     }
     
@@ -61,7 +60,7 @@ function parseFILine ($line) {
         $matches = array();
         if (preg_match($regex, $line, $matches)) {
             if ($matches[12] !== 'N') {
-                // Tilbageførsel er ikke N
+                // Tilbagefï¿½rsel er ikke N
                 return false;
             }
             $fi_number = substr($matches[5], 0, -1);
