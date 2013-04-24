@@ -11,7 +11,7 @@ function init(){
 
 function parseFile()
     {
-        echo "LÃ¦ser overfÃ¸rsler...<br/><br/>";
+        echo "Læser overførsler...<br/><br/>";
         
         $file = $_FILES['file'];
         
@@ -51,8 +51,8 @@ function parseFile()
 
         }
         
-        echo "Der var i alt " . $count . " overfÃ¸rsler, med et total belÃ¸b pÃ¥ " . number_format($total_sum, 2, ',', '.') . " kr. <br/>";
-        echo "Husk at tjekke om belÃ¸bet stemmer med banken!";
+        echo "Der var i alt " . $count . " overførsler, med et total beløb på " . number_format($total_sum, 2, ',', '.') . " kr. <br/>";
+        echo "Husk at tjekke om beløbet stemmer med banken!";
         
     }
     
