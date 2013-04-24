@@ -35,9 +35,10 @@ function parseFile()
                 // FI Line
                 if($fi_parsed = parseFILine($line))
                 {
-                    echo "OverfÃ¸rsel " . (string)($count + 1) . "<br/>";
-                    echo 'FI nummer:   ' . $fi_parsed['fi_number'] . "<br/>";
-                    echo 'BelÃ¸b:      ' . number_format((double)$fi_parsed['amount'], 2, ',', '.') . " kr.<br/>";
+
+                    echo "Overførsel " . (string)($count + 1) . "<br/>";
+                    echo 'FI nummer:   ' . '+71<' . $fi_parsed['fi_number'] . "<br/>";
+                    echo 'Beløb:      ' . number_format((double)$fi_parsed['amount'], 2, ',', '.') . " kr.<br/>";
                     echo 'Betalingsdato: ' . $fi_parsed['payment_date'] . "<br/>";
                     echo 'Bank dato:   ' . $fi_parsed['payment_date2'] . "<br/>";
                     echo '<br/>';
@@ -60,13 +61,12 @@ function parseFILine ($line) {
         $matches = array();
         if (preg_match($regex, $line, $matches)) {
             if ($matches[12] !== 'N') {
-                // Tilbagefï¿½rsel er ikke N
                 return false;
             }
-            $fi_number = substr($matches[5], 0, -1);
+            $fi_number = substr($line, 19, 15);
             $paymentdate = substr($matches[3],0, 4) . '-' . substr($matches[3], 4, 2) . '-' . substr($matches[3], 6, 2);
             $paymentdate2 = substr($line,56, 4) . '-' . substr($line, 60, 2) . '-' . substr($line, 62, 2);
-            return array('fi_number' => (int)$fi_number, 'amount' => $matches[8] / 100, 'payment_date' => $paymentdate, 'payment_date2' => $paymentdate2, 'note' => $line);
+            return array('fi_number' => $fi_number, 'amount' => $matches[8] / 100, 'payment_date' => $paymentdate, 'payment_date2' => $paymentdate2, 'note' => $line);
         }
 
         return false;
